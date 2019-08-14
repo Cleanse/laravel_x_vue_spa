@@ -7,7 +7,8 @@
         <ul v-if="users">
             <li v-for="{ id, name, email } in users">
                 <strong>Name:</strong> {{ name }},
-                <strong>Email:</strong> {{ email }}
+                <strong>Email:</strong> {{ email }} |
+                <router-link :to="{ name: 'users.edit', params: { id } }">Edit</router-link>
             </li>
         </ul>
 
@@ -16,8 +17,13 @@
             {{ paginatonCount }}
             <button :disabled="! nextPage" @click.prevent="goToNext">Next</button>
         </div>
+
+        <div>
+            <router-link :to="{ name: 'users.create' }">Add User</router-link>
+        </div>
     </div>
 </template>
+
 <script>
     import axios from 'axios';
     const getUsers = (page, callback) => {
@@ -107,3 +113,20 @@
         }
     }
 </script>
+
+<style lang="scss" scoped>
+    $red: lighten(red, 30%);
+    $darkRed: darken($red, 50%);
+    .form-group label {
+        display: block;
+    }
+    .alert {
+        background: $red;
+        color: $darkRed;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        width: 50%;
+        border: 1px solid $darkRed;
+        border-radius: 5px;
+    }
+</style>
