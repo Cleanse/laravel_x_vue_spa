@@ -4,12 +4,12 @@
             <p>{{ error }}</p>
         </div>
 
-        <ul v-if="faqs">
-            <li v-for="{ id, subj, answer } in faqs" class="faq-container">
+        <div v-if="faqs">
+            <div v-for="{ id, subj, answer } in faqs" class="faq-container">
                 <h3>{{ subj }}</h3>
                 <p>{{ answer }}</p>
-            </li>
-        </ul>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -125,5 +125,16 @@
         width: 50%;
         border: 1px solid $darkRed;
         border-radius: 5px;
+    }
+
+    .faq-container {
+        margin-bottom: 2rem;
+
+        h3 {
+            font-size: 1.5em;
+            margin: 0 auto 1rem;
+            text-align: center;
+            font-family: 'Luckiest Guy', cursive;
+        }
     }
 </style>

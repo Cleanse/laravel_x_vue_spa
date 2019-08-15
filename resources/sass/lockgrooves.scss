@@ -1,0 +1,142 @@
+.content-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-header,
+.page-footer {
+  flex-shrink: 0;
+}
+
+.page-body {
+  flex-grow: 1;
+}
+
+.fa-home,
+.fa-question-circle,
+.fa-dot-circle,
+.fa-calculator,
+.fa-download,
+.fa-envelope,
+.fa-facebook-f,
+.fa-instagram {
+  height: 1.75rem;
+}
+
+.lg-banner {
+  padding: 1rem 0;
+  background: url('../images/lathes2bg.jpg') no-repeat center center;
+  background-size: cover;
+  text-align: center;
+}
+
+.lg-main-nav {
+  margin-bottom: 2rem;
+  background: #000;
+  font-size: 1.75rem;
+  font-family: 'Luckiest Guy', sans-serif;
+  text-transform: uppercase;
+}
+
+#logo {
+  width: auto;
+  height: 10rem;
+  filter: drop-shadow(.25rem .25rem 2rem $blue);
+}
+
+.lg-lead {
+  font-size: 1.25rem;
+  font-weight: 300;
+}
+
+.faq-container {
+  margin-bottom: 2rem;
+
+  h3 {
+    font-size: 1.5em;
+    margin: 0 auto 1rem;
+    text-align: center;
+    font-family: 'Luckiest Guy', cursive;
+  }
+}
+
+/* Admin */
+.admin-header {
+  padding-top: 2.5rem;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  padding: 48px 0 0;
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+  background: rgba(#4aedef, .1);
+
+  a {
+    color: #007bff;
+  }
+
+  .nav-link:hover, .nav-link:focus {
+    text-decoration: underline !important;
+  }
+}
+
+.sidebar-sticky {
+  position: relative;
+  top: 0;
+  height: calc(100vh - 48px);
+  padding-top: .5rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.sidebar-sticky {
+  position: -webkit-sticky;
+  position: sticky;
+}
+
+.admin-table {
+  .table-striped td {
+    padding: .5rem 0;
+  }
+
+  .table-striped tbody tr:nth-of-type(odd) {
+    background: rgba(#4aedef, .1);
+  }
+}
+
+@media (max-width: 920px) {
+  .lg-main-nav {
+    font-size: 1rem;
+  }
+
+  .fa-home,
+  .fa-question-circle,
+  .fa-dot-circle,
+  .fa-calculator,
+  .fa-download,
+  .fa-envelope,
+  .fa-facebook-f,
+  .fa-instagram {
+    height: 1rem;
+  }
+}
+
+@media (max-width: 585px) {
+  .lg-main-nav {
+    .fa-home,
+    .fa-question-circle,
+    .fa-dot-circle,
+    .fa-calculator,
+    .fa-download,
+    .fa-envelope,
+    .fa-facebook-f,
+    .fa-instagram {
+      display: none;
+    }
+  }
+}
