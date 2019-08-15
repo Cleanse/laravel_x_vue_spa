@@ -1,39 +1,28 @@
 <template>
-    <div class="users">
+    <div class="faq-wrapper">
         <div v-if="error" class="error">
             <p>{{ error }}</p>
         </div>
 
-        <ul v-if="users">
-            <li v-for="{ id, name, email } in users">
-                <strong>Name:</strong> {{ name }},
-                <strong>Email:</strong> {{ email }} |
-                <router-link :to="{ name: 'users.edit', params: { id } }">Edit</router-link>
+        <ul v-if="faqs">
+            <li v-for="{ id, subj, answer } in faqs" class="faq-container">
+                <h3>{{ subj }}</h3>
+                <p>{{ answer }}</p>
             </li>
         </ul>
-
-        <div class="pagination">
-            <button :disabled="! prevPage" @click.prevent="goToPrev">Previous</button>
-            {{ paginatonCount }}
-            <button :disabled="! nextPage" @click.prevent="goToNext">Next</button>
-        </div>
-
-        <div>
-            <router-link :to="{ name: 'users.create' }">Add User</router-link>
-        </div>
     </div>
 </template>
 
 <script>
     import axios from 'axios';
 
-    const getUsers = (page, callback) => {
+    const getFAQs = (page, callback) => {
         const params = { page };
 
         axios
-            .get('/api/users', { params })
+            .get('/api/faqs', { params })
             .then(response => {
-                callback(null, response.data);
+                callback(null, response);
             }).catch(error => {
                 callback(error, error.response.data);
         });
@@ -42,7 +31,7 @@
     export default {
         data() {
             return {
-                users: null,
+                faqs: null,
                 meta: null,
                 links: {
                     first: null,
@@ -58,32 +47,35 @@
                 if (! this.meta || this.meta.current_page === this.meta.last_page) {
                     return;
                 }
+
                 return this.meta.current_page + 1;
             },
             prevPage() {
                 if (! this.meta || this.meta.current_page === 1) {
                     return;
                 }
+
                 return this.meta.current_page - 1;
             },
             paginatonCount() {
                 if (! this.meta) {
                     return;
                 }
+
                 const { current_page, last_page } = this.meta;
                 return `${current_page} of ${last_page}`;
             },
         },
         beforeRouteEnter (to, from, next) {
-            getUsers(to.query.page, (err, data) => {
+            getFAQs(to.query.page, (err, data) => {
                 next(vm => vm.setData(err, data));
             });
         },
         // when route changes and this component is already rendered,
         // the logic will be slightly different.
         beforeRouteUpdate (to, from, next) {
-            this.users = this.links = this.meta = null
-            getUsers(to.query.page, (err, data) => {
+            this.faqs = this.links = this.meta = null
+            getFAQs(to.query.page, (err, data) => {
                 this.setData(err, data);
                 next();
             });
@@ -98,17 +90,17 @@
             },
             goToPrev() {
                 this.$router.push({
-                    name: 'users.index',
+                    name: 'faq',
                     query: {
                         page: this.prevPage,
                     }
                 });
             },
-            setData(err, { data: users, links, meta }) {
+            setData(err, { data: faqs, links, meta }) {
                 if (err) {
                     this.error = err.toString();
                 } else {
-                    this.users = users;
+                    this.faqs = faqs;
                     this.links = links;
                     this.meta = meta;
                 }
@@ -120,9 +112,11 @@
 <style lang="scss" scoped>
     $red: lighten(red, 30%);
     $darkRed: darken($red, 50%);
+
     .form-group label {
         display: block;
     }
+
     .alert {
         background: $red;
         color: $darkRed;

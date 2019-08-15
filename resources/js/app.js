@@ -4,12 +4,12 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 import App from './views/App'
-import Hello from './views/Hello'
+import FAQ from './views/FAQ'
 import Home from './views/Home'
 import UsersIndex from './views/UsersIndex'
 import UsersEdit from './views/UsersEdit'
+import UsersCreate from './views/UsersCreate'
 import NotFound from './views/NotFound'
-import UsersCreate from './views/UsersCreate';
 
 const router = new VueRouter({
     mode: 'history',
@@ -20,9 +20,9 @@ const router = new VueRouter({
             component: Home
         },
         {
-            path: '/hello',
-            name: 'hello',
-            component: Hello,
+            path: '/faq',
+            name: 'faq',
+            component: FAQ,
         },
         {
             path: '/users/create',
