@@ -2,15 +2,15 @@
     <section class="products-wrapper">
         <div class="form-group">
             <label for="product_type">Product Type</label>
-            <select class="form-control" name="product_type" id="product_type" v-model="product_type" @change="selectType">
+            <select class="form-control" name="product_type" id="product_type" v-model="product_type" @change="showProducts">
                 <option :value="null" disabled selected>Select Type</option>
                 <option v-for="option in product_types" v-bind:value="option.id">{{ option.name }}</option>
             </select>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" v-if="products">
             <label for="product">Products</label>
-            <select class="form-control" name="product" id="product" v-model="product">
+            <select class="form-control" name="product" id="product">
                 <option :value="null" disabled selected>Select Product</option>
                 <option v-for="product in products" v-bind:value="product.id">{{ product.name }}</option>
             </select>
@@ -38,7 +38,7 @@
                 product_type: null,
                 product: null,
                 product_types: this.loadProductTypes(),
-                products: {},
+                products: null,
                 error: null,
             };
         },
@@ -55,17 +55,18 @@
                     this.product_types = types;
                 }
             },
-            selectType() {
+            showProducts() {
+                this.products = null;
                 this.loadProducts(this.product_type);
             },
             loadProducts(product_type_id) {
                 api.find(product_type_id)
-                    .then((response) => {
-                        this.products = response.data;
-                    })
-                    .catch((err) => {
-                        this.error = err.toString();
-                    });
+                .then((response) => {
+                    this.products = response.data;
+                })
+                .catch((err) => {
+                    this.error = err.toString();
+                });
             }
         }
     }
