@@ -1,6 +1,10 @@
 <template>
     <section class="products-wrapper">
-        <div class="form-group">
+        <div class="alert alert-danger" role="alert" v-if="error">
+            {{ error }}
+        </div>
+
+        <div class="form-group" v-if="!error">
             <label for="product_type">Product Type</label>
             <select class="form-control" name="product_type" id="product_type" v-model="product_type" @change="showProducts">
                 <option :value="null" disabled selected>Select Type</option>
