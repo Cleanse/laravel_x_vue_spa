@@ -7,15 +7,19 @@
 
         <div class="nav justify-content-center lg-main-nav">
             <div class="nav-item">
-                <router-link :to="{ name: 'home' }" class="nav-link active">Home</router-link>
+                <router-link :to="{ name: 'home' }" class="nav-link">Home</router-link>
             </div>
 
             <div class="nav-item">
-                <router-link :to="{ name: 'faq' }" class="nav-link active">FAQ</router-link>
+                <router-link :to="{ name: 'faq' }" class="nav-link">FAQ</router-link>
             </div>
 
             <div class="nav-item">
-                <router-link :to="{ name: 'users.index' }" class="nav-link active">Users</router-link>
+                <router-link :to="{ name: 'products.index' }" class="nav-link">Products</router-link>
+            </div>
+
+            <div class="nav-item">
+                <router-link :to="{ name: 'users.index' }" class="nav-link">Users</router-link>
             </div>
         </div>
     </header>

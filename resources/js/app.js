@@ -6,6 +6,7 @@ Vue.use(VueRouter)
 import App from './views/App'
 import FAQ from './views/FAQ'
 import Home from './views/Home'
+import Products from './views/Products'
 import UsersIndex from './views/UsersIndex'
 import UsersEdit from './views/UsersEdit'
 import UsersCreate from './views/UsersCreate'
@@ -22,22 +23,27 @@ const router = new VueRouter({
         {
             path: '/faq',
             name: 'faq',
-            component: FAQ,
+            component: FAQ
+        },
+        {
+            path: '/products',
+            name: 'products.index',
+            component: Products
         },
         {
             path: '/users/create',
             name: 'users.create',
-            component: UsersCreate,
+            component: UsersCreate
         },
         {
             path: '/users',
             name: 'users.index',
-            component: UsersIndex,
+            component: UsersIndex
         },
         {
             path: '/users/:id/edit',
             name: 'users.edit',
-            component: UsersEdit,
+            component: UsersEdit
         },
         {
             path: '/404',

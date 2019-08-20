@@ -25,4 +25,10 @@ Route::namespace('Api')->group(function () {
     Route::get('/faqs/{faq}', 'FAQsController@show');
     Route::put('/faqs/{faq}', 'FAQsController@update');
     Route::delete('/faqs/{faq}', 'FAQsController@destroy');
+
+    Route::get('/product-types', 'ProductTypesController@index');
+    Route::get('/product-types/{type}', 'ProductTypesController@show');
+
+    Route::get('/products', 'ProductsController@index');
+    Route::get('/products/{product}', 'ProductsController@show');
 });
