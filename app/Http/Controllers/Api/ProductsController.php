@@ -12,7 +12,12 @@ class ProductsController extends Controller
 {
     public function index(Request $id)
     {
-        return ProductResource::collection(Product::where('product_type_id', '=', $id)->get());
+        $products = Product::where([
+            'product_type_id' => $id,
+            'active' => 1
+        ])->get();
+
+        return ProductResource::collection($products);
     }
 
     public function show(Product $product)

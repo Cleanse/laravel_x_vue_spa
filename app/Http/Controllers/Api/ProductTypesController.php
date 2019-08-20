@@ -12,7 +12,9 @@ class ProductTypesController extends Controller
 {
     public function index()
     {
-        return ProductTypeResource::collection(ProductType::all());
+        $types = ProductType::where('active', 1)->get();
+
+        return ProductTypeResource::collection($types);
     }
 
     public function show(ProductType $productType)
