@@ -1,5 +1,5 @@
 <template>
-    <div class="faq-wrapper">
+    <div class="faq-wrapper mb-5">
         <div v-if="error" class="error">
             <p>{{ error }}</p>
         </div>
@@ -22,7 +22,7 @@
         axios
             .get('/api/faqs', { params })
             .then(response => {
-                callback(null, response);
+                callback(null, response.data);
             }).catch(error => {
                 callback(error, error.response.data);
         });

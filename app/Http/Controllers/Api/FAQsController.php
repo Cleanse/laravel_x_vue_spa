@@ -12,7 +12,9 @@ class FAQsController extends Controller
 {
     public function index()
     {
-        return FAQ::where('active', '=', 1)->get();
+        $faqs = FAQ::where(['active' => 1])->get();
+
+        return FAQResource::collection($faqs);
     }
 
     public function show(FAQ $faq)
