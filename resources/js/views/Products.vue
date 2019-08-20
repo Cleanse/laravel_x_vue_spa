@@ -32,18 +32,6 @@
             });
     };
 
-    const getProducts = (type, callback) => {
-        const params = { type };
-
-        axios
-            .get('/api/products', { params })
-            .then(response => {
-                callback(null, response.data);
-            }).catch(error => {
-                callback(error, error.response.data);
-        });
-    };
-
     export default {
         data() {
             return {
@@ -55,9 +43,6 @@
             };
         },
         methods: {
-            selectType() {
-                this.loadProducts(this.product_type.id)
-            },
             loadProductTypes() {
                 this.product_types = getProductTypes((err, data) => {
                     this.setTypeList(err, data);
@@ -70,10 +55,13 @@
                     this.product_types = types;
                 }
             },
+            selectType() {
+                this.loadProducts(this.product_type);
+            },
             loadProducts(product_type_id) {
                 api.find(product_type_id)
                     .then((response) => {
-                        this.products = response.data.data;
+                        this.products = response.data;
                     })
                     .catch((err) => {
                         this.error = err.toString();

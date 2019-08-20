@@ -10,7 +10,7 @@ use App\Product;
 
 class ProductsController extends Controller
 {
-    public function index($id)
+    public function index(Request $id)
     {
         return ProductResource::collection(Product::where('product_type_id', '=', $id)->get());
     }
