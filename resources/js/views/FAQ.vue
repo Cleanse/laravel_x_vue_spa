@@ -74,7 +74,7 @@
         // when route changes and this component is already rendered,
         // the logic will be slightly different.
         beforeRouteUpdate (to, from, next) {
-            this.faqs = this.links = this.meta = null
+            this.faqs = this.links = this.meta = null;
             getFAQs(to.query.page, (err, data) => {
                 this.setData(err, data);
                 next();

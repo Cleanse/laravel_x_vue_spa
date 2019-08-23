@@ -83,6 +83,10 @@
   .nav-link:hover, .nav-link:focus {
     text-decoration: underline !important;
   }
+
+  .nav-link.router-link-exact-active {
+    background: rgba(#4aedef, .33);
+  }
 }
 
 .sidebar-sticky {

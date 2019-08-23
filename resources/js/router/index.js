@@ -12,6 +12,7 @@ import UsersCreate from '../views/UsersCreate.vue';
 
 //Admin Dashboard
 import AdminIndex from '../views/AdminIndex.vue';
+import AdminFAQsList from '../views/AdminFAQsList.vue';
 
 //Misc
 import NotFound from '../views/NotFound.vue';
@@ -55,6 +56,11 @@ export default new Router({
             path: '/lg',
             name: 'admin.index',
             component: AdminIndex
+        },
+        {
+            path: '/lg/faqs',
+            name: 'admin.faqs-list',
+            component: AdminFAQsList
         },
         {
             path: '/404',
