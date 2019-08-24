@@ -1,28 +1,35 @@
 <template>
-    <div>
-        <div v-if="message" class="alert">{{ message }}</div>
-        <div v-if="! loaded">Loading...</div>
-        <form @submit.prevent="onSubmit($event)" v-else>
-            <div class="form-group">
-                <label for="user_name">Name</label>
-                <input id="user_name" v-model="user.name" />
-            </div>
-            <div class="form-group">
-                <label for="user_email">Email</label>
-                <input id="user_email" type="email" v-model="user.email" />
-            </div>
-            <div class="form-group">
-                <button type="submit" :disabled="saving">Update</button>
-                <button :disabled="saving" @click.prevent="onDelete($event)">Delete</button>
-            </div>
-        </form>
-    </div>
+    <layout name="Dashboard">
+        <div>
+            <div v-if="message" class="alert">{{ message }}</div>
+            <div v-if="! loaded">Loading...</div>
+            <form @submit.prevent="onSubmit($event)" v-else>
+                <div class="form-group">
+                    <label for="user_name">Name</label>
+                    <input id="user_name" v-model="user.name" />
+                </div>
+                <div class="form-group">
+                    <label for="user_email">Email</label>
+                    <input id="user_email" type="email" v-model="user.email" />
+                </div>
+                <div class="form-group">
+                    <button type="submit" :disabled="saving">Update</button>
+                    <button :disabled="saving" @click.prevent="onDelete($event)">Delete</button>
+                </div>
+            </form>
+        </div>
+    </layout>
 </template>
 
 <script>
     import api from '../api/users';
+    import Layout from "../layouts/Layout";
 
     export default {
+        name: `UsersEdit`,
+        components: {
+            Layout
+        },
         data() {
             return {
                 message: null,
@@ -36,6 +43,9 @@
             };
         },
         methods: {
+            setLayout(layout) {
+                this.$store.commit('SET_LAYOUT', layout);
+            },
             onSubmit(event) {
                 this.saving = true;
 

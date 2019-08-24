@@ -52,38 +52,18 @@
     };
 
     export default {
-        name: `AdminFAQsList`,
+        name: `AdminSettings`,
         components: {
             Layout,
         },
         data() {
             return {
-                faqs: this.loadFAQs(),
-                meta: null,
-                links: {
-                    first: null,
-                    last: null,
-                    next: null,
-                    prev: null,
-                },
-                error: null,
+
             };
         },
         methods: {
             setLayout(layout) {
                 this.$store.commit('SET_LAYOUT', layout);
-            },
-            loadFAQs() {
-                this.faqs = getFAQs((err, data) => {
-                    this.setFAQsList(err, data);
-                });
-            },
-            setFAQsList(err, { data: faqs }) {
-                if (err) {
-                    this.error = err.toString();
-                } else {
-                    this.faqs = faqs;
-                }
             },
         }
     }

@@ -16,5 +16,10 @@
         components: {
             Layout,
         },
+        methods: {
+            setLayout(layout) {
+                this.$store.commit('SET_LAYOUT', layout);
+            },
+        }
     };
 </script>

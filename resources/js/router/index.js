@@ -6,13 +6,17 @@ import Router from 'vue-router';
 import Home from '../views/Home.vue';
 import FAQ from '../views/FAQ.vue';
 import Products from '../views/Products.vue';
-import UsersIndex from '../views/UsersIndex.vue';
-import UsersEdit from '../views/UsersEdit.vue';
-import UsersCreate from '../views/UsersCreate.vue';
+
 
 //Admin Dashboard
 import AdminIndex from '../views/AdminIndex.vue';
+import UsersIndex from '../views/UsersIndex.vue';
+import UsersEdit from '../views/UsersEdit.vue';
+import UsersCreate from '../views/UsersCreate.vue';
 import AdminFAQsList from '../views/AdminFAQsList.vue';
+
+//tmp
+import AdminSettings from '../views/AdminSettings.vue';
 
 //Misc
 import NotFound from '../views/NotFound.vue';
@@ -61,6 +65,11 @@ export default new Router({
             path: '/lg/faqs',
             name: 'admin.faqs-list',
             component: AdminFAQsList
+        },
+        {
+            path: '/lg/settings',
+            name: 'admin.settings',
+            component: AdminSettings
         },
         {
             path: '/404',

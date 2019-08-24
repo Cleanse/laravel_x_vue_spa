@@ -1,30 +1,33 @@
 <template>
-    <div class="users">
-        <div v-if="error" class="error">
-            <p>{{ error }}</p>
-        </div>
+    <layout name="Dashboard">
+        <div class="users">
+            <div v-if="error" class="error">
+                <p>{{ error }}</p>
+            </div>
 
-        <ul v-if="users">
-            <li v-for="{ id, name, email } in users">
-                <strong>Name:</strong> {{ name }},
-                <strong>Email:</strong> {{ email }} |
-                <router-link :to="{ name: 'users.edit', params: { id } }">Edit</router-link>
-            </li>
-        </ul>
+            <ul class="list-group" v-if="users">
+                <li class="list-group-item" v-for="{ id, name, email } in users">
+                    <strong>Name:</strong> {{ name }},
+                    <strong>Email:</strong> {{ email }} |
+                    <router-link :to="{ name: 'users.edit', params: { id } }">Edit</router-link>
+                </li>
+            </ul>
 
-        <div class="pagination">
-            <button :disabled="! prevPage" @click.prevent="goToPrev">Previous</button>
-            {{ paginatonCount }}
-            <button :disabled="! nextPage" @click.prevent="goToNext">Next</button>
-        </div>
+            <div class="pagination">
+                <button :disabled="! prevPage" @click.prevent="goToPrev">Previous</button>
+                {{ paginatonCount }}
+                <button :disabled="! nextPage" @click.prevent="goToNext">Next</button>
+            </div>
 
-        <div>
-            <router-link :to="{ name: 'users.create' }">Add User</router-link>
+            <div>
+                <router-link :to="{ name: 'users.create' }">Add User</router-link>
+            </div>
         </div>
-    </div>
+    </layout>
 </template>
 
 <script>
+    import Layout from '../layouts/Layout';
     import axios from 'axios';
 
     const getUsers = (page, callback) => {
@@ -40,6 +43,10 @@
     };
 
     export default {
+        name: `UsersIndex`,
+        components: {
+            Layout,
+        },
         data() {
             return {
                 users: null,
@@ -89,6 +96,9 @@
             });
         },
         methods: {
+            setLayout(layout) {
+                this.$store.commit('SET_LAYOUT', layout);
+            },
             goToNext() {
                 this.$router.push({
                     query: {

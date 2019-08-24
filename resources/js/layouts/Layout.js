@@ -17,8 +17,8 @@ export default {
         if (!Vue.options.components[this.name]) {
             Vue.component(
                 this.name,
-                () => import(`../layouts/${this.name}.vue`),
-            );
+                () => import(`../layouts/${this.name}.vue`)
+            )
         }
 
         this.$parent.$emit(`update:layout`, this.name);

@@ -1,19 +1,22 @@
 <template>
-    <div class="faq-wrapper mb-5">
-        <div v-if="error" class="error">
-            <p>{{ error }}</p>
-        </div>
+    <layout name="Frontend">
+        <div class="faq-wrapper mb-5">
+            <div v-if="error" class="error">
+                <p>{{ error }}</p>
+            </div>
 
-        <div v-if="faqs">
-            <div v-for="{ id, subj, answer } in faqs" class="faq-container">
-                <h3>{{ subj }}</h3>
-                <p>{{ answer }}</p>
+            <div v-if="faqs">
+                <div v-for="{ id, subj, answer } in faqs" class="faq-container">
+                    <h3>{{ subj }}</h3>
+                    <p>{{ answer }}</p>
+                </div>
             </div>
         </div>
-    </div>
+    </layout>
 </template>
 
 <script>
+    import Layout from '../layouts/Layout';
     import axios from 'axios';
 
     const getFAQs = (page, callback) => {
@@ -29,6 +32,10 @@
     };
 
     export default {
+        name: `FAQ`,
+        components: {
+            Layout,
+        },
         data() {
             return {
                 faqs: null,
@@ -81,6 +88,9 @@
             });
         },
         methods: {
+            setLayout(layout) {
+                this.$store.commit('SET_LAYOUT', layout);
+            },
             goToNext() {
                 this.$router.push({
                     query: {

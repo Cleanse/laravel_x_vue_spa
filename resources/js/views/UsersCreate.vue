@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <layout name="Dashboard">
         <h1>Create a User</h1>
         <div v-if="message" class="alert">{{ message }}</div>
 
@@ -22,13 +22,18 @@
                 </button>
             </div>
         </form>
-    </div>
+    </layout>
 </template>
 
 <script>
+    import Layout from '../layouts/Layout';
     import api from '../api/users';
 
     export default {
+        name: `UsersCreate`,
+        components: {
+            Layout,
+        },
         data() {
             return {
                 saving: false,
@@ -41,6 +46,9 @@
             }
         },
         methods: {
+            setLayout(layout) {
+                this.$store.commit('SET_LAYOUT', layout);
+            },
             onSubmit($event) {
                 this.saving = true
                 this.message = false

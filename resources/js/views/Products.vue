@@ -23,6 +23,7 @@
 </template>
 
 <script>
+    import Layout from '../layouts/Layout';
     import axios from 'axios';
     import api from '../api/products';
 
@@ -37,6 +38,10 @@
     };
 
     export default {
+        name: `Home`,
+        components: {
+            Layout,
+        },
         data() {
             return {
                 product_type: null,
@@ -47,6 +52,9 @@
             };
         },
         methods: {
+            setLayout(layout) {
+                this.$store.commit('SET_LAYOUT', layout);
+            },
             loadProductTypes() {
                 this.product_types = getProductTypes((err, data) => {
                     this.setTypeList(err, data);
