@@ -21,8 +21,9 @@ Route::namespace('Api')->group(function () {
     Route::delete('/users/{user}', 'UsersController@destroy');
 
     Route::get('/faqs', 'FAQsController@index');
-    Route::post('/faqs', 'FAQsController@store');
     Route::get('/faqs/{faq}', 'FAQsController@show');
+    Route::get('/faqs/display', 'FAQsController@display');
+    Route::post('/faqs', 'FAQsController@store');
     Route::put('/faqs/{faq}', 'FAQsController@update');
     Route::delete('/faqs/{faq}', 'FAQsController@destroy');
 

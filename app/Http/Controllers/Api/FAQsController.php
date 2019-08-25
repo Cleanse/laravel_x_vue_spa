@@ -10,11 +10,16 @@ use App\FAQ;
 
 class FAQsController extends Controller
 {
-    public function index()
+    public function display()
     {
         $faqs = FAQ::where(['active' => 1])->get();
 
         return FAQResource::collection($faqs);
+    }
+
+    public function index()
+    {
+        return FAQResource::collection(FAQ::paginate(10));
     }
 
     public function show(FAQ $faq)
