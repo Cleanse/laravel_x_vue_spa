@@ -18,6 +18,8 @@ class FAQResource extends JsonResource
             'id' => $this->id,
             'subj' => $this->subj,
             'answer' => $this->answer,
+            'active' => $this->active,
+            'created_at' => $this->created_at
         ];
     }
 }

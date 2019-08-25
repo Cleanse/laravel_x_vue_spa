@@ -1,6 +1,10 @@
 <template>
     <layout name="Dashboard">
         <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <div v-if="error" class="alert alert-danger" role="alert">
+                <p>{{ error }}</p>
+            </div>
+
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1>Frequently Asked Questions</h1>
             </div>
@@ -13,22 +17,35 @@
                         <tr>
                             <th>Date</th>
                             <th>Order Number</th>
-                            <th>Customer</th>
-                            <th>Price</th>
+                            <th>Subject</th>
+                            <th>Answer</th>
                             <th>Status</th>
                         </tr>
                         </thead>
                         <tbody v-if="faqs">
-                        <tr v-for="{ id, subj, answer } in faqs">
-                            <td>Time</td>
+                        <tr v-for="{ id, subj, answer, active, created_at } in faqs">
+                            <td>{{ created_at }}</td>
                             <td>
                                 <router-link class="nav-link" active-class="active" :to="{ name: 'admin.faq' }">
                                     {{ id }}
                                 </router-link>
                             </td>
+                            <td>{{ subj }}</td>
+                            <td>{{ answer }}</td>
+                            <td>{{ status }}</td>
                         </tr>
                         </tbody>
                     </table>
+
+                    <div class="pagination">
+                        <button :disabled="! prevPage" @click.prevent="goToPrev">Previous</button>
+                        {{ paginatonCount }}
+                        <button :disabled="! nextPage" @click.prevent="goToNext">Next</button>
+                    </div>
+
+                    <div>
+                        <router-link :to="{ name: 'faqs.create' }">Add New FAQ</router-link>
+                    </div>
                 </div>
             </section>
         </div>
@@ -58,7 +75,7 @@
         },
         data() {
             return {
-                faqs: this.loadFAQs(),
+                faqs: null,
                 meta: null,
                 links: {
                     first: null,
@@ -69,20 +86,66 @@
                 error: null,
             };
         },
+        computed: {
+            nextPage() {
+                if (! this.meta || this.meta.current_page === this.meta.last_page) {
+                    return;
+                }
+                return this.meta.current_page + 1;
+            },
+            prevPage() {
+                if (! this.meta || this.meta.current_page === 1) {
+                    return;
+                }
+                return this.meta.current_page - 1;
+            },
+            paginatonCount() {
+                if (!this.meta) {
+                    return;
+                }
+                const { current_page, last_page } = this.meta;
+                return `${current_page} of ${last_page}`;
+            },
+        },
+        beforeRouteEnter (to, from, next) {
+            getFAQs(to.query.page, (err, data) => {
+                next(vm => vm.setData(err, data));
+            });
+        },
+        beforeRouteUpdate (to, from, next) {
+            this.faqs = this.links = this.meta = null;
+
+            getFAQs(to.query.page, (err, data) => {
+                this.setData(err, data);
+                next();
+            });
+        },
         methods: {
             setLayout(layout) {
                 this.$store.commit('SET_LAYOUT', layout);
             },
-            loadFAQs() {
-                this.faqs = getFAQs((err, data) => {
-                    this.setFAQsList(err, data);
+            goToNext() {
+                this.$router.push({
+                    query: {
+                        page: this.nextPage,
+                    },
                 });
             },
-            setFAQsList(err, { data: faqs }) {
+            goToPrev() {
+                this.$router.push({
+                    name: 'admin.faqs-list',
+                    query: {
+                        page: this.prevPage,
+                    }
+                });
+            },
+            setData(err, { data: faqs, links, meta }) {
                 if (err) {
                     this.error = err.toString();
                 } else {
                     this.faqs = faqs;
+                    this.links = links;
+                    this.meta = meta;
                 }
             },
         }

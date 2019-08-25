@@ -14,6 +14,7 @@ import UsersIndex from '../views/UsersIndex.vue';
 import UsersEdit from '../views/UsersEdit.vue';
 import UsersCreate from '../views/UsersCreate.vue';
 import AdminFAQsList from '../views/AdminFAQsList.vue';
+import AdminFAQsCreate from '../views/AdminFAQsCreate.vue';
 
 //tmp
 import AdminSettings from '../views/AdminSettings.vue';
@@ -65,6 +66,11 @@ export default new Router({
             path: '/lg/faqs',
             name: 'admin.faqs-list',
             component: AdminFAQsList
+        },
+        {
+            path: '/faqs/create',
+            name: 'faqs.create',
+            component: AdminFAQsCreate
         },
         {
             path: '/lg/settings',
