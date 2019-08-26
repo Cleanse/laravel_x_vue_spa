@@ -45,6 +45,7 @@ class FAQsController extends Controller
         $data = $request->validate([
             'subj' => 'required',
             'answer' => 'required',
+            'active' => 'required'
         ]);
 
         $faq->update($data);
