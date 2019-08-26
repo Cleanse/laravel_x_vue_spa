@@ -1,27 +1,44 @@
 <template>
     <layout name="Dashboard">
-        <div class="users">
-            <div v-if="error" class="error">
+        <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+                <h1>Manage Administrators</h1>
+            </div>
+
+            <div v-if="error" class="alert alert-danger" role="alert">
                 <p>{{ error }}</p>
             </div>
 
-            <ul class="list-group" v-if="users">
-                <li class="list-group-item" v-for="{ id, name, email } in users">
-                    <strong>Name:</strong> {{ name }},
-                    <strong>Email:</strong> {{ email }} |
-                    <router-link :to="{ name: 'users.edit', params: { id } }">Edit</router-link>
-                </li>
-            </ul>
+            <section class="user-list">
+                <div class="mb-1">
+                    <router-link :to="{ name: 'users.create' }" class="btn btn-success">
+                        Add New Administrator</router-link>
+                </div>
 
-            <div class="pagination">
-                <button :disabled="! prevPage" @click.prevent="goToPrev">Previous</button>
-                {{ paginatonCount }}
-                <button :disabled="! nextPage" @click.prevent="goToNext">Next</button>
-            </div>
+                <ul class="list-group" v-if="users">
+                    <router-link class="list-group-item list-group-item-action"
+                                 v-for="{ id, name, email } in users"
+                                 :key="id"
+                                 :to="{ name: 'users.edit', params: { id } }"
+                                 tag="li">
+                        <strong>Name:</strong> {{ name }},
+                        <strong>Email:</strong> {{ email }} |
+                        <router-link :to="{ name: 'users.edit', params: { id } }">Edit</router-link>
+                    </router-link>
+                </ul>
 
-            <div>
-                <router-link :to="{ name: 'users.create' }">Add User</router-link>
-            </div>
+                <nav aria-label="FAQ Pagination">
+                    <ul class="pagination justify-content-end">
+                        <li class="page-item active"><span class="page-link">Page {{ paginatonCount }}</span></li>
+                        <li class="page-item">
+                            <a class="page-link" :disabled="!prevPage" @click.prevent="goToPrev">
+                                Previous</a></li>
+                        <li class="page-item">
+                            <a class="page-link" :disabled="! nextPage" @click.prevent="goToNext">
+                                Next</a></li>
+                    </ul>
+                </nav>
+            </section>
         </div>
     </layout>
 </template>
@@ -74,7 +91,7 @@
                 return this.meta.current_page - 1;
             },
             paginatonCount() {
-                if (! this.meta) {
+                if (!this.meta) {
                     return;
                 }
                 const { current_page, last_page } = this.meta;
@@ -86,10 +103,9 @@
                 next(vm => vm.setData(err, data));
             });
         },
-        // when route changes and this component is already rendered,
-        // the logic will be slightly different.
         beforeRouteUpdate (to, from, next) {
-            this.users = this.links = this.meta = null
+            this.users = this.links = this.meta = null;
+
             getUsers(to.query.page, (err, data) => {
                 this.setData(err, data);
                 next();

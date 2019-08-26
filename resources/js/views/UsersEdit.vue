@@ -1,20 +1,28 @@
 <template>
     <layout name="Dashboard">
-        <div>
-            <div v-if="message" class="alert">{{ message }}</div>
-            <div v-if="! loaded">Loading...</div>
+        <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+                <h1>Edit {{ user.name }}</h1>
+            </div>
+
+            <div v-if="message" class="alert alert-danger" role="alert">
+                <p>{{ message }}</p>
+            </div>
+
+            <div v-if="!loaded">Loading...</div>
             <form @submit.prevent="onSubmit($event)" v-else>
                 <div class="form-group">
                     <label for="user_name">Name</label>
-                    <input id="user_name" v-model="user.name" />
+                    <input class="form-control" id="user_name" v-model="user.name" />
                 </div>
                 <div class="form-group">
                     <label for="user_email">Email</label>
-                    <input id="user_email" type="email" v-model="user.email" />
+                    <input class="form-control" id="user_email" type="email" v-model="user.email" />
                 </div>
                 <div class="form-group">
-                    <button type="submit" :disabled="saving">Update</button>
-                    <button :disabled="saving" @click.prevent="onDelete($event)">Delete</button>
+                    <button type="submit" class="btn btn-primary" :disabled="saving">Update</button>
+                    <button class="btn btn-outline-danger" :disabled="saving" @click.prevent="onDelete($event)">Delete</button>
+                    <button class="btn btn-danger" :disabled="saving" disabled>Mail Password Reset</button>
                 </div>
             </form>
         </div>
@@ -54,7 +62,7 @@
                     email: this.user.email,
                 }).then((response) => {
                     this.message = 'User updated';
-                    setTimeout(() => this.message = null, 1000);
+                    setTimeout(() => this.message = null, 1500);
                     this.user = response.data.data;
                 }).catch(error => {
                     console.log(error)
@@ -62,6 +70,7 @@
             },
             onDelete() {
                 this.saving = true;
+
                 api.delete(this.user.id)
                     .then((response) => {
                         this.$router.push({ name: 'users.index' });
@@ -80,20 +89,3 @@
         }
     };
 </script>
-
-<style lang="scss" scoped>
-    $red: lighten(red, 30%);
-    $darkRed: darken($red, 50%);
-    .form-group label {
-        display: block;
-    }
-    .alert {
-        background: $red;
-        color: $darkRed;
-        padding: 1rem;
-        margin-bottom: 1rem;
-        width: 50%;
-        border: 1px solid $darkRed;
-        border-radius: 5px;
-    }
-</style>
