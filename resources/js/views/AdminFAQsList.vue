@@ -1,51 +1,54 @@
 <template>
     <layout name="Dashboard">
         <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+                <h1>Frequently Asked Questions</h1>
+            </div>
+
             <div v-if="error" class="alert alert-danger" role="alert">
                 <p>{{ error }}</p>
             </div>
 
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1>Frequently Asked Questions</h1>
-            </div>
-
             <section class="latest-orders">
-                <h2>List of FAQs</h2>
+                <div class="mb-1">
+                    <router-link :to="{ name: 'faqs.create' }" class="btn btn-success">Add New FAQ</router-link>
+                </div>
+
                 <div class="table-responsive admin-table">
-                    <table class="table table-striped table-sm">
+                    <table class="table table-hover table-sm">
                         <thead>
                         <tr>
                             <th>Date</th>
                             <th>Order Number</th>
                             <th>Subject</th>
-                            <th>Answer</th>
                             <th>Status</th>
                         </tr>
                         </thead>
                         <tbody v-if="faqs">
-                        <tr v-for="{ id, subj, answer, active, created_at } in faqs">
-                            <td>{{ created_at }}</td>
-                            <td>
-                                <router-link class="nav-link" active-class="active" :to="{ name: 'admin.faq' }">
-                                    {{ id }}
-                                </router-link>
-                            </td>
+                        <router-link
+                                v-for="{ id, subj, active, created_at } in faqs"
+                                :key="id"
+                                :to="{ name: 'faqs.edit', params: { id } }"
+                                tag="tr">
+                            <td>{{ created_at | formatDate }}</td>
+                            <td>#{{ id }}</td>
                             <td>{{ subj }}</td>
-                            <td>{{ answer }}</td>
-                            <td>{{ status }}</td>
-                        </tr>
+                            <td>{{ active }}</td>
+                        </router-link>
                         </tbody>
                     </table>
 
-                    <div class="pagination">
-                        <button :disabled="! prevPage" @click.prevent="goToPrev">Previous</button>
-                        {{ paginatonCount }}
-                        <button :disabled="! nextPage" @click.prevent="goToNext">Next</button>
-                    </div>
-
-                    <div>
-                        <router-link :to="{ name: 'faqs.create' }">Add New FAQ</router-link>
-                    </div>
+                    <nav aria-label="FAQ Pagination">
+                        <ul class="pagination justify-content-end">
+                            <li class="page-item active"><span class="page-link">Page {{ paginatonCount }}</span></li>
+                            <li class="page-item">
+                                <a class="page-link" :disabled="!prevPage" @click.prevent="goToPrev">
+                                    Previous</a></li>
+                            <li class="page-item">
+                                <a class="page-link" :disabled="! nextPage" @click.prevent="goToNext">
+                                    Next</a></li>
+                        </ul>
+                    </nav>
                 </div>
             </section>
         </div>
