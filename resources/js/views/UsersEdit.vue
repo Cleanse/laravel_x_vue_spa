@@ -1,8 +1,10 @@
 <template>
     <layout name="Dashboard">
         <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+            <div class="pt-3 pb-2 mb-3">
                 <h1>Edit {{ user.name }}</h1>
+                <router-link class="small" to="/lg/users">
+                    &larr; To Admin List</router-link>
             </div>
 
             <div v-if="message" class="alert alert-danger" role="alert">

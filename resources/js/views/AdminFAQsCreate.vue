@@ -1,9 +1,12 @@
 <template>
     <layout name="Dashboard">
         <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
-            <h1>Create New FAQ</h1>
-            <div v-if="error" class="alert alert-danger" role="alert">
-                <p>{{ error }}</p>
+            <div class="pt-3 pb-2 mb-3">
+                <h1>Create New FAQ</h1>
+            </div>
+
+            <div v-if="message" class="alert alert-danger" role="alert">
+                <p>{{ message }}</p>
             </div>
 
             <form @submit.prevent="onSubmit($event)">
