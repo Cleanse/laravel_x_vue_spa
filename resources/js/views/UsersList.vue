@@ -60,7 +60,7 @@
     };
 
     export default {
-        name: `UsersIndex`,
+        name: `UsersList`,
         components: {
             Layout,
         },
