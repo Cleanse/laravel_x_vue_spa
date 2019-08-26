@@ -19,7 +19,6 @@
                         <thead>
                         <tr>
                             <th>Date</th>
-                            <th>Order Number</th>
                             <th>Subject</th>
                             <th>Status</th>
                         </tr>
@@ -31,9 +30,8 @@
                                 :to="{ name: 'faqs.edit', params: { id } }"
                                 tag="tr">
                             <td>{{ created_at | formatDate }}</td>
-                            <td>#{{ id }}</td>
                             <td>{{ subj }}</td>
-                            <td>{{ active }}</td>
+                            <td>{{ active ? `Active` : `Not Active` }}</td>
                         </router-link>
                         </tbody>
                     </table>
