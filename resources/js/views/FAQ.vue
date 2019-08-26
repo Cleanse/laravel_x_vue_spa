@@ -8,7 +8,7 @@
             <div v-if="faqs">
                 <div v-for="{ id, subj, answer } in faqs" class="faq-container">
                     <h3>{{ subj }}</h3>
-                    <p>{{ answer }}</p>
+                    <nl2br tag="p" :text="answer" />
                 </div>
             </div>
         </div>
