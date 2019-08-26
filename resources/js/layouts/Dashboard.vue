@@ -57,12 +57,17 @@
                             <hr>
                             <ul class="nav flex-column">
                                 <li class="nav-item">
+                                    <router-link class="nav-link" active-class="active" to="/lg/users">
+                                        Administrators
+                                    </router-link>
+                                </li>
+                                <li class="nav-item">
                                     <router-link class="nav-link" active-class="active" to="/lg/faqs">
                                         FAQs
                                     </router-link>
                                 </li>
                                 <li class="nav-item">
-                                    <router-link class="nav-link" active-class="active" to="lg/settings">
+                                    <router-link class="nav-link" active-class="active" to="/lg/settings">
                                         Settings
                                     </router-link>
                                 </li>
