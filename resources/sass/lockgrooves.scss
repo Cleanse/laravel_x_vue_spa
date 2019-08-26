@@ -62,6 +62,11 @@
 }
 
 /* Admin */
+.list-group-item-action:hover,
+.table-hover tbody tr {
+  cursor: pointer;
+}
+
 .admin-header {
   padding-top: 2.5rem;
 }
