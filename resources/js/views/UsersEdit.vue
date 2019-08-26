@@ -45,8 +45,8 @@
                 saving: false,
                 user: {
                     id: null,
-                    name: "",
-                    email: ""
+                    name: ``,
+                    email: ``
                 }
             };
         },
@@ -61,7 +61,7 @@
                     name: this.user.name,
                     email: this.user.email,
                 }).then((response) => {
-                    this.message = 'User updated';
+                    this.message = `User updated`;
                     setTimeout(() => this.message = null, 1500);
                     this.user = response.data.data;
                 }).catch(error => {
