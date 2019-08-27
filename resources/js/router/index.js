@@ -5,6 +5,7 @@ import Router from 'vue-router';
 //Frontend
 import Home from '../views/Home.vue';
 import FAQ from '../views/FAQ.vue';
+import Records from '../views/Records.vue';
 import Products from '../views/Products.vue';
 import Contact from '../views/Contact.vue';
 
@@ -37,6 +38,11 @@ export default new Router({
             path: '/faq',
             name: 'faq',
             component: FAQ
+        },
+        {
+            path: '/records',
+            name: 'records',
+            component: Records
         },
         {
             path: '/products',
