@@ -11,6 +11,13 @@
                     <nl2br tag="p" :text="answer" />
                 </div>
             </div>
+
+            <hr>
+
+            <p class="lead">
+                If your question was not answered above, please feel free to contact us:
+                <a href="mailto:lockgrooves.az@gmail.com">lockgrooves.az@gmail.com</a>.
+            </p>
         </div>
     </layout>
 </template>
