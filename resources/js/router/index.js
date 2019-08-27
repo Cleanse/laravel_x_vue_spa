@@ -6,6 +6,7 @@ import Router from 'vue-router';
 import Home from '../views/Home.vue';
 import FAQ from '../views/FAQ.vue';
 import Products from '../views/Products.vue';
+import Contact from '../views/Contact.vue';
 
 //Admin Dashboard
 import AdminIndex from '../views/AdminIndex.vue';
@@ -41,6 +42,11 @@ export default new Router({
             path: '/products',
             name: 'products.index',
             component: Products
+        },
+        {
+            path: '/contact',
+            name: 'contact',
+            component: Contact
         },
         {
             path: '/lg',

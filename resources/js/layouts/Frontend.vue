@@ -19,10 +19,10 @@
                 </div>
 
                 <div class="nav-item">
-                    <router-link :to="{ name: 'users.index' }" class="nav-link">Users</router-link>
+                    <router-link :to="{ name: 'contact' }" class="nav-link">Contact Us</router-link>
                 </div>
 
-                <!-- Admin If Logged In -->
+                <!-- Admin If Logged In, won't be needed after finalizing layout? -->
                 <div class="nav-item">
                     <router-link :to="{ name: 'admin.index' }" class="nav-link">Admin</router-link>
                 </div>
@@ -35,7 +35,7 @@
             </div>
         </main>
 
-        <footer class="page-footer pt-3 bg-dark text-light text-center">
+        <footer class="page-footer pt-2 pb-3 bg-dark text-light text-center">
             All Content &copy; 2015 - {{ currentYear }} <router-link :to="{ name: 'home' }">LockGrooves.com</router-link>
 
             <div class="p-2">
