@@ -134,7 +134,7 @@
             },
             goToPrev() {
                 this.$router.push({
-                    name: 'admin.faqs-list',
+                    name: 'faqs.list',
                     query: {
                         page: this.prevPage,
                     }
