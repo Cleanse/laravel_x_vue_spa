@@ -13,6 +13,9 @@ class ProductType extends Model
      */
     protected $fillable = [
         'name',
+        'description',
+        'notes',
+        'feature_image',
         'active'
     ];
 }

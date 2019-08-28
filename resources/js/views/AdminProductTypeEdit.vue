@@ -2,9 +2,9 @@
     <layout name="Dashboard">
         <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="pt-3 pb-2 mb-3">
-                <h1>Edit {{ faq.subj }}</h1>
-                <router-link class="small" to="/lg/faqs">
-                    &larr; To FAQs List</router-link>
+                <h1>Edit {{ ptype.name }}</h1>
+                <router-link class="small" to="/lg/product-types">
+                    &larr; To Product Types List</router-link>
             </div>
 
             <div v-if="message" class="alert alert-danger" role="alert">
@@ -14,16 +14,20 @@
             <div v-if="!loaded">Loading...</div>
             <form @submit.prevent="onSubmit($event)" v-else>
                 <div class="form-group">
-                    <label for="subj">Subject</label>
-                    <input class="form-control" id="subj" v-model="faq.subj">
+                    <label for="name">Product Type Name</label>
+                    <input class="form-control" id="name" v-model="ptype.name">
                 </div>
                 <div class="form-group">
-                    <label for="answer">Answer</label>
-                    <textarea class="form-control" id="answer" v-model="faq.answer"></textarea>
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="description" v-model="ptype.description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="notes">Notes (Optional)</label>
+                    <textarea class="form-control" id="notes" v-model="ptype.notes"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="active">Display on Website?</label>
-                    <select id="active" class="form-control" v-model="faq.active">
+                    <select id="active" class="form-control" v-model="ptype.active">
                         <option selected>Choose...</option>
                         <option value="0">Hide</option>
                         <option value="1">Display</option>
@@ -39,11 +43,11 @@
 </template>
 
 <script>
-    import api from '../api/faqs';
+    import api from '../api/product_types';
     import Layout from "../layouts/Layout";
 
     export default {
-        name: `AdminFAQsEdit`,
+        name: `AdminProductTypeEdit`,
         components: {
             Layout
         },
@@ -52,10 +56,11 @@
                 message: null,
                 loaded: false,
                 saving: false,
-                faq: {
+                ptype: {
                     id: null,
-                    subj: ``,
-                    answer: ``,
+                    name: ``,
+                    description: ``,
+                    notes: ``,
                     active: null
                 },
             };
@@ -67,15 +72,16 @@
             onSubmit(event) {
                 this.saving = true;
 
-                api.update(this.faq.id, {
-                    subj: this.faq.subj,
-                    answer: this.faq.answer,
-                    active: this.faq.active,
+                api.update(this.pt.id, {
+                    name: this.pt.name,
+                    description: this.pt.description,
+                    notes: this.pt.notes,
+                    active: this.pt.active,
                 }).then((response) => {
-                    this.message = `FAQ updated`;
+                    this.message = `Product Type updated.`;
 
                     setTimeout(() => this.message = null, 1500);
-                    this.faq = response.data.data;
+                    this.pt = response.data.data;
                 }).catch(error => {
                     this.message = error;
                 }).then(_ => this.saving = false);
@@ -83,9 +89,9 @@
             onDelete() {
                 this.saving = true;
 
-                api.delete(this.faq.id)
+                api.delete(this.pt.id)
                     .then((response) => {
-                        this.$router.push({ name: 'faqs.list' });
+                        this.$router.push({ name: 'pt.list' });
                     });
             }
         },
@@ -93,7 +99,8 @@
             api.find(this.$route.params.id)
                 .then((response) => {
                     this.loaded = true;
-                    this.faq = response.data.data;
+                    this.pt = response.data.data;
+                    console.log(response);
                 })
                 .catch((err) => {
                     this.$router.push({ name: '404' });

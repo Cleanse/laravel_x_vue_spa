@@ -27,8 +27,12 @@ Route::namespace('Api')->group(function () {
     Route::put('/faqs/{faq}', 'FAQsController@update');
     Route::delete('/faqs/{faq}', 'FAQsController@destroy');
 
+    Route::get('/product-types/display', 'ProductTypesController@display');
     Route::get('/product-types', 'ProductTypesController@index');
     Route::get('/product-types/{type}', 'ProductTypesController@show');
+    Route::post('/product-types', 'ProductTypesController@store');
+    Route::put('/product-types/{faq}', 'ProductTypesController@update');
+    Route::delete('/product-types/{faq}', 'ProductTypesController@destroy');
 
     Route::get('/products', 'ProductsController@index');
     Route::get('/products/{product}', 'ProductsController@show');

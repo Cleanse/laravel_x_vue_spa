@@ -11,12 +11,18 @@ import Contact from '../views/Contact.vue';
 
 //Admin Dashboard
 import AdminIndex from '../views/AdminIndex.vue';
+
 import UsersList from '../views/UsersList.vue';
 import UsersCreate from '../views/UsersCreate.vue';
 import UsersEdit from '../views/UsersEdit.vue';
+
 import AdminFAQsList from '../views/AdminFAQsList.vue';
 import AdminFAQsCreate from '../views/AdminFAQsCreate.vue';
 import AdminFAQsEdit from '../views/AdminFAQsEdit.vue';
+
+import AdminProductTypeList from '../views/AdminProductTypeList.vue';
+import AdminProductTypeCreate from '../views/AdminProductTypeCreate.vue';
+import AdminProductTypeEdit from '../views/AdminProductTypeEdit.vue';
 
 //tmp
 import AdminSettings from '../views/AdminSettings.vue';
@@ -77,7 +83,7 @@ export default new Router({
         },
         {
             path: '/lg/faqs',
-            name: 'admin.faqs-list',
+            name: 'faqs.list',
             component: AdminFAQsList
         },
         {
@@ -89,6 +95,21 @@ export default new Router({
             path: '/lg/faqs/:id/edit',
             name: 'faqs.edit',
             component: AdminFAQsEdit
+        },
+        {
+            path: '/lg/product-types',
+            name: 'pt.list',
+            component: AdminProductTypeList
+        },
+        {
+            path: '/lg/product-types/create',
+            name: 'pt.create',
+            component: AdminProductTypeCreate
+        },
+        {
+            path: '/lg/product-types/:id/edit',
+            name: 'pt.edit',
+            component: AdminProductTypeEdit
         },
         {
             path: '/lg/settings',

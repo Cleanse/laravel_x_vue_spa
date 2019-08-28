@@ -10,15 +10,53 @@ use App\ProductType;
 
 class ProductTypesController extends Controller
 {
-    public function index()
+    public function display()
     {
-        $types = ProductType::where('active', 1)->get();
+        $pts = ProductType::where(['active' => 1])->get();
 
-        return ProductTypeResource::collection($types);
+        return ProductTypeResource::collection($pts);
     }
 
-    public function show(ProductType $productType)
+    public function index()
     {
-        return new ProductTypeResource($productType);
+        return ProductTypeResource::collection(ProductType::paginate(10));
+    }
+
+    public function show(ProductType $pt)
+    {
+        return new ProductTypeResource($pt);
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        return new ProductTypeResource(ProductType::create([
+            'name' => $data['name'],
+            'description' => $data['description']
+        ]));
+    }
+
+    public function update(ProductType $pt, Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'active' => 'required'
+        ]);
+
+        $pt->update($data);
+
+        return new ProductTypeResource($pt);
+    }
+
+    public function destroy(ProductType $pt)
+    {
+        $pt->delete();
+
+        return response(null, 204);
     }
 }
