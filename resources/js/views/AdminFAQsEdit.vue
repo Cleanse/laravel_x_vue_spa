@@ -7,8 +7,8 @@
                     &larr; To FAQs List</router-link>
             </div>
 
-            <div v-if="message" class="alert alert-danger" role="alert">
-                <p>{{ message }}</p>
+            <div v-if="message" class="alert alert-warning" role="alert">
+                <span>{{ message }}</span>
             </div>
 
             <div v-if="!loaded">Loading...</div>

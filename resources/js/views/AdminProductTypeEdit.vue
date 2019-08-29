@@ -2,32 +2,32 @@
     <layout name="Dashboard">
         <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="pt-3 pb-2 mb-3">
-                <h1>Edit {{ ptype.name }}</h1>
+                <h1>Edit {{ pType.name }}</h1>
                 <router-link class="small" to="/lg/product-types">
                     &larr; To Product Types List</router-link>
             </div>
 
-            <div v-if="message" class="alert alert-danger" role="alert">
-                <p>{{ message }}</p>
+            <div v-if="message" class="alert alert-warning" role="alert">
+                <span>{{ message }}</span>
             </div>
 
             <div v-if="!loaded">Loading...</div>
             <form @submit.prevent="onSubmit($event)" v-else>
                 <div class="form-group">
                     <label for="name">Product Type Name</label>
-                    <input class="form-control" id="name" v-model="ptype.name">
+                    <input class="form-control" id="name" v-model="pType.name">
                 </div>
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea class="form-control" id="description" v-model="ptype.description"></textarea>
+                    <textarea class="form-control" id="description" v-model="pType.description"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="notes">Notes (Optional)</label>
-                    <textarea class="form-control" id="notes" v-model="ptype.notes"></textarea>
+                    <textarea class="form-control" id="notes" v-model="pType.notes"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="active">Display on Website?</label>
-                    <select id="active" class="form-control" v-model="ptype.active">
+                    <select id="active" class="form-control" v-model="pType.active">
                         <option selected>Choose...</option>
                         <option value="0">Hide</option>
                         <option value="1">Display</option>
@@ -56,7 +56,7 @@
                 message: null,
                 loaded: false,
                 saving: false,
-                ptype: {
+                pType: {
                     id: null,
                     name: ``,
                     description: ``,
@@ -72,16 +72,15 @@
             onSubmit(event) {
                 this.saving = true;
 
-                api.update(this.pt.id, {
-                    name: this.pt.name,
-                    description: this.pt.description,
-                    notes: this.pt.notes,
-                    active: this.pt.active,
+                api.update(this.pType.id, {
+                    name: this.pType.name,
+                    description: this.pType.description,
+                    notes: this.pType.notes,
+                    active: this.pType.active,
                 }).then((response) => {
                     this.message = `Product Type updated.`;
 
-                    setTimeout(() => this.message = null, 1500);
-                    this.pt = response.data.data;
+                    this.pType = response.data.data;
                 }).catch(error => {
                     this.message = error;
                 }).then(_ => this.saving = false);
@@ -89,7 +88,7 @@
             onDelete() {
                 this.saving = true;
 
-                api.delete(this.pt.id)
+                api.delete(this.pType.id)
                     .then((response) => {
                         this.$router.push({ name: 'pt.list' });
                     });
@@ -99,8 +98,7 @@
             api.find(this.$route.params.id)
                 .then((response) => {
                     this.loaded = true;
-                    this.pt = response.data.data;
-                    console.log(response);
+                    this.pType = response.data.data;
                 })
                 .catch((err) => {
                     this.$router.push({ name: '404' });
