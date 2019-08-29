@@ -42,13 +42,13 @@ class FAQsController extends Controller
 
     public function update(FAQ $faq, Request $request)
     {
-        $data = $request->validate([
+        $request->validate([
             'subj' => 'required',
             'answer' => 'required',
             'active' => 'required'
         ]);
 
-        $faq->update($data);
+        $faq->update($request->all());
 
         return new FAQResource($faq);
     }

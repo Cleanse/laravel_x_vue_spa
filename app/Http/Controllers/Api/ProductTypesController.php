@@ -40,22 +40,22 @@ class ProductTypesController extends Controller
         ]));
     }
 
-    public function update(ProductType $pt, Request $request)
+    public function update(ProductType $productType, Request $request)
     {
-        $data = $request->validate([
+        $request->validate([
             'name' => 'required',
             'description' => 'required',
             'active' => 'required'
         ]);
 
-        $pt->update($data);
+        $productType->update($request->all());
 
-        return new ProductTypeResource($pt);
+        return new ProductTypeResource($productType);
     }
 
-    public function destroy(ProductType $pt)
+    public function destroy(ProductType $productType)
     {
-        $pt->delete();
+        $productType->delete();
 
         return response(null, 204);
     }
