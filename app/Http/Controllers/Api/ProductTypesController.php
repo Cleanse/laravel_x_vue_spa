@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use App\Http\Resources\ProductTypeResource;
 use App\ProductType;
+use App\Http\Resources\ProductTypeResource;
 
 class ProductTypesController extends Controller
 {
@@ -22,9 +22,9 @@ class ProductTypesController extends Controller
         return ProductTypeResource::collection(ProductType::paginate(10));
     }
 
-    public function show(ProductType $pt)
+    public function show(ProductType $productType)
     {
-        return new ProductTypeResource($pt);
+        return new ProductTypeResource($productType);
     }
 
     public function store(Request $request)
