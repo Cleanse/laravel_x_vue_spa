@@ -17,6 +17,7 @@ class CreateProductsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('feature_image')->nullable();
+            $table->string('template')->nullable();
             $table->string('description')->nullable();
             $table->string('notes')->nullable();
             $table->boolean('active')->default(1);
