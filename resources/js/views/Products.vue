@@ -1,5 +1,6 @@
 <template>
     <section class="products-wrapper">
+        <h1>Checkout Example</h1>
         <div class="alert alert-danger" role="alert" v-if="error">
             {{ error }}
         </div>
@@ -38,7 +39,7 @@
     };
 
     export default {
-        name: `Home`,
+        name: `Products`,
         components: {
             Layout,
         },
