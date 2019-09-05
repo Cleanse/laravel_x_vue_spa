@@ -15,7 +15,14 @@ class ProductType extends Model
         'name',
         'description',
         'notes',
-        'feature_image',
         'active'
     ];
+
+    /**
+     * Get the pType's image.
+     */
+    public function image()
+    {
+        return $this->morphMany('App\FileUpload', 'fileable');
+    }
 }
