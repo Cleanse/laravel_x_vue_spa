@@ -1,6 +1,8 @@
 <template>
     <layout name="Frontend">
         <div class="faq-wrapper mb-5">
+            <h1>Frequently Asked Questions</h1>
+
             <div v-if="error" class="alert alert-danger" role="alert">
                 <p>{{ error }}</p>
             </div>
@@ -8,7 +10,7 @@
             <div v-if="faqs">
                 <div v-for="{ id, subj, answer } in faqs" class="faq-container">
                     <h3>{{ subj }}</h3>
-                    <nl2br tag="p" :text="answer" />
+                    <nl2br tag="p" :text="answer"></nl2br>
                 </div>
             </div>
 
