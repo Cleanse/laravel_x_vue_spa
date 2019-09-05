@@ -12,9 +12,9 @@ class ProductTypesController extends Controller
 {
     public function display()
     {
-        $pts = ProductType::where(['active' => 1])->get();
+        $records = ProductType::where(['active' => 1])->get();
 
-        return ProductTypeResource::collection($pts);
+        return ProductTypeResource::collection($records);
     }
 
     public function index()
@@ -40,15 +40,13 @@ class ProductTypesController extends Controller
         ]));
     }
 
-    //https://medium.com/@sagarmaheshwary31/laravel-5-8-from-scratch-eloquent-relationships-and-image-upload-49daece52a24
     public function update(ProductType $productType, Request $request)
     {
         $request->validate([
             'name'        => 'required',
             'description' => 'required',
             'active'      => 'required',
-            'notes'       => 'nullable|string',
-            'image'       => 'nullable|image|max:1999'
+            'notes'       => 'nullable|string'
         ]);
 
         $productType->update($request->all());
