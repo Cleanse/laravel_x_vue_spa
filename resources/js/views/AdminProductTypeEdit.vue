@@ -43,11 +43,24 @@
                 </div>
 
                 <div class="col-md-4">
-                    <file-uploader :attachment_id="pType.id" :attachment_type="pType.name"></file-uploader>
+                    <vue-clip :on-sending="sending" :options="options">
+                        <template slot="clip-uploader-action">
+                            <div>
+                                <div class="dz-message" :style="{ cursor: 'pointer' }">
+                                    <h4> Click or Drag and Drop files here upload </h4>
+                                </div>
+                            </div>
+                        </template>
+
+                        <template v-slot:clip-uploader-body="props">
+                            <div v-for="file in props.files">
+                                <img v-bind:src="file.dataUrl" />
+                                {{ file.name }} {{ file.status }}
+                            </div>
+                        </template>
+                    </vue-clip>
                 </div>
             </div>
-
-
         </div>
     </layout>
 </template>
@@ -73,6 +86,11 @@
                     notes: ``,
                     active: null
                 },
+                options: {
+                    url: `/api/product-types/featured`,
+                    paramName: 'file',
+                    headers: window.axios.defaults.headers.common
+                }
             };
         },
         methods: {
@@ -102,6 +120,9 @@
                     .then((response) => {
                         this.$router.push({ name: 'pt.list' });
                     });
+            },
+            sending(file, xhr, formData) {
+                formData.append('product_type', this.pType.id)
             }
         },
         created() {

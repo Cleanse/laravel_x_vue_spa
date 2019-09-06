@@ -60,4 +60,16 @@ class ProductTypesController extends Controller
 
         return response(null, 204);
     }
+
+    public function featured(Request $request)
+    {
+        $file = $request->file('file');
+
+        return response([
+            'message' => 'uploaded',
+            'type' => $request->product_type,
+            'filename' => $file->getClientOriginalName(),
+            'size' => $file->getSize()
+        ], 200);
+    }
 }

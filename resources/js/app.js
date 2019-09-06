@@ -3,8 +3,8 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import moment from 'moment';
+import VueClip from 'vue-clip';
 import Nl2br from 'vue-nl2br';
-import FileUploader from './components/FileUploader.vue';
 import bootstrap from './bootstrap.js';
 
 Vue.filter('formatDate', function(value) {
@@ -13,8 +13,9 @@ Vue.filter('formatDate', function(value) {
     }
 });
 
+Vue.use(VueClip);
+
 Vue.component('nl2br', Nl2br);
-Vue.component('file-uploader', FileUploader);
 
 new Vue({
     router,

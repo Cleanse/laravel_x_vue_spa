@@ -8,6 +8,9 @@ export default {
     display(params) {
         return client.get('product-types/display', params);
     },
+    featured(productType, data) {
+        return client.post(`product-types/featured/${productType}`, data);
+    },
     all(params) {
         return client.get('product-types', params);
     },
