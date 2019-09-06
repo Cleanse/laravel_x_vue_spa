@@ -5,6 +5,7 @@ import router from './router';
 import moment from 'moment';
 import Nl2br from 'vue-nl2br';
 import FileUploader from './components/FileUploader.vue';
+import bootstrap from './bootstrap.js';
 
 Vue.filter('formatDate', function(value) {
     if (value) {
