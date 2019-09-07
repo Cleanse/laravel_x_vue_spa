@@ -11,7 +11,15 @@ class FileUpload extends Model
         'mime',
         'path',
         'size',
-        'attachment_id',
-        'attachment_type'
+        'fileable_id',
+        'fileable_type'
     ];
+
+    /**
+     * Get the owning fileable model.
+     */
+    public function fileable()
+    {
+        return $this->morphTo();
+    }
 }

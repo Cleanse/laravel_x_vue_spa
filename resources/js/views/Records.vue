@@ -9,9 +9,9 @@
 
             <div v-if="records" class="row mb-3">
                 <div class="col-md-8">
-                    <div class="record-type-wrapper" v-for="{ id, name, featured_image } in records">
-                        <h3>{{ name }}</h3>
-                        <img :src="featured_image">
+                    <div class="record-type-wrapper" v-for="record in records" v-bind:key="record.id">
+                        <h3>{{ record.name }}</h3>
+                        <img :src="record.image">
                     </div>
                 </div>
 

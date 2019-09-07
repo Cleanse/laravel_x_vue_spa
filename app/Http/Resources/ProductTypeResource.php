@@ -4,6 +4,8 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+use App\Http\Resources\FileUploadsResource;
+
 class ProductTypeResource extends JsonResource
 {
     /**
@@ -19,7 +21,7 @@ class ProductTypeResource extends JsonResource
             'name'          => $this->name,
             'description'   => $this->description,
             'notes'         => $this->notes,
-            'feature_image' => $this->feature_image,
+            'featured'      => FileUploadsResource::collection($this->images),
             'active'        => $this->active,
             'created_at'    => $this->created_at
         ];

@@ -19,8 +19,8 @@ class CreateFileUploadsTable extends Migration
             $table->string('mime');
             $table->string('path');
             $table->integer('size');
-            $table->string('attachment_id')->index()->nullable(); //many to many?
-            $table->string('attachment_type')->index()->nullable(); //many to many?
+            $table->bigInteger('fileable_id')->index()->nullable(); //many to many?
+            $table->string('fileable_type')->index()->nullable(); //many to many?
             $table->timestamps();
         });
     }

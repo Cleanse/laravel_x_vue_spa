@@ -122,7 +122,7 @@
                     });
             },
             sending(file, xhr, formData) {
-                formData.append('product_type', this.pType.id)
+                formData.append('fileable_id', this.pType.id);
             }
         },
         created() {

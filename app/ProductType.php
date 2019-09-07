@@ -21,7 +21,7 @@ class ProductType extends Model
     /**
      * Get the pType's image.
      */
-    public function image()
+    public function images()
     {
         return $this->morphMany('App\FileUpload', 'fileable');
     }

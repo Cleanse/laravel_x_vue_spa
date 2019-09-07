@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
+use App\FileUpload;
 use App\ProductType;
 use App\Http\Resources\ProductTypeResource;
 
@@ -63,13 +65,31 @@ class ProductTypesController extends Controller
 
     public function featured(Request $request)
     {
-        $file = $request->file('file');
+        //Setup Validation & Look into the symlink
+
+        $type = ProductType::find($request->input('product_type'));
+
+        if (!$type) {
+            return response([
+                'message' => 'Product Type was not found.'
+            ], 404);
+        }
+
+        $path = Storage::put('featured/' . $request->input('product_type'), $request->file('file'), 'public');
+        $size = Storage::size($path);
+
+        $fileInformation = [
+            'filename' => rtrim($path, '/'),
+            'mime' => $request->file('file')->getClientOriginalExtension(),
+            'path' => $path,
+            'size' => $size
+        ];
+
+        $newUpload = new FileUpload($fileInformation);
+        $type->images()->save($newUpload);
 
         return response([
-            'message' => 'uploaded',
-            'type' => $request->product_type,
-            'filename' => $file->getClientOriginalName(),
-            'size' => $file->getSize()
+            'message' => 'uploaded'
         ], 200);
     }
 }
