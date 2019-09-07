@@ -7,16 +7,14 @@
                 <p>{{ error }}</p>
             </div>
 
-            <div v-if="faqs">
+            <div v-if="faqs" class="mt-3">
                 <div v-for="{ id, subj, answer } in faqs" class="faq-container">
-                    <h3>{{ subj }}</h3>
+                    <h5>{{ subj }}</h5>
                     <nl2br tag="p" :text="answer"></nl2br>
                 </div>
             </div>
 
-            <hr>
-
-            <p class="lead">
+            <p class="lead alert alert-dark" role="alert">
                 If your question was not answered above, please feel free to contact us:
                 <a href="mailto:lockgrooves.az@gmail.com">lockgrooves.az@gmail.com</a>.
             </p>

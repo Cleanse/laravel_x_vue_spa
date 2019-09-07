@@ -59,11 +59,12 @@ a {
 .faq-container {
   margin-bottom: 2rem;
 
-  h3 {
-    font-size: 1.5em;
-    margin: 0 auto 1rem;
-    text-align: center;
-    font-family: 'Luckiest Guy', cursive;
+  &:not(:last-child) {
+    border-bottom: 1px solid rgba(#CFB8A9, .33);
+  }
+
+  h5 {
+    color: #94806E;
   }
 }
 
