@@ -9,7 +9,6 @@ class FileUpload extends Model
     protected $fillable = [
         'filename',
         'mime',
-        'path',
         'size',
         'fileable_id',
         'fileable_type'

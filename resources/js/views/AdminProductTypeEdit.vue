@@ -43,6 +43,12 @@
                 </div>
 
                 <div class="col-md-4">
+                    <div class="list-group">
+                        <div class="list-group-item" v-for="image in pType.featured">
+                            <img :src="`/${image.name}`">
+                        </div>
+                    </div>
+
                     <vue-clip :on-sending="sending" :options="options">
                         <template slot="clip-uploader-action">
                             <div>

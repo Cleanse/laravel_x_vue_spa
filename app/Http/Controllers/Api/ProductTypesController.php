@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -33,22 +34,24 @@ class ProductTypesController extends Controller
     {
         $data = $request->validate([
             'name' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'notes' => 'nullable|string'
         ]);
 
         return new ProductTypeResource(ProductType::create([
             'name' => $data['name'],
-            'description' => $data['description']
+            'description' => $data['description'],
+            'notes' => $data['notes']
         ]));
     }
 
     public function update(ProductType $productType, Request $request)
     {
         $request->validate([
-            'name'        => 'required',
+            'name' => 'required',
             'description' => 'required',
-            'active'      => 'required',
-            'notes'       => 'nullable|string'
+            'active' => 'required',
+            'notes' => 'nullable|string'
         ]);
 
         $productType->update($request->all());
@@ -65,9 +68,12 @@ class ProductTypesController extends Controller
 
     public function featured(Request $request)
     {
-        //Setup Validation & Look into the symlink
+        $request->validate([
+            'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'fileable_id' => 'required'
+        ]);
 
-        $type = ProductType::find($request->input('product_type'));
+        $type = ProductType::find($request->input('fileable_id'));
 
         if (!$type) {
             return response([
@@ -75,21 +81,27 @@ class ProductTypesController extends Controller
             ], 404);
         }
 
-        $path = Storage::put('featured/' . $request->input('product_type'), $request->file('file'), 'public');
-        $size = Storage::size($path);
+        if ($file = $request->file('file')) {
+            $fileName = Storage::disk('public')->put('featured', $request->file('file'));
+            $size = Storage::size($fileName);
 
-        $fileInformation = [
-            'filename' => rtrim($path, '/'),
-            'mime' => $request->file('file')->getClientOriginalExtension(),
-            'path' => $path,
-            'size' => $size
-        ];
+            $fileInformation = [
+                'filename' => $fileName,
+                'mime' => $request->file('file')->getClientOriginalExtension(),
+                'size' => $size
+            ];
 
-        $newUpload = new FileUpload($fileInformation);
-        $type->images()->save($newUpload);
+            $newUpload = new FileUpload($fileInformation);
+            $type->images()->save($newUpload);
+
+            return response([
+                'message' => 'Product Type image uploaded.',
+                'storage' => $fileInformation
+            ], 200);
+        }
 
         return response([
-            'message' => 'uploaded'
-        ], 200);
+            'message' => 'Error when uploading image.'
+        ], 404);
     }
 }
