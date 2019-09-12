@@ -86,7 +86,7 @@ class ProductTypesController extends Controller
             $size = Storage::size($fileName);
 
             $fileInformation = [
-                'filename' => $fileName,
+                'filename' => '/storage/' . $fileName,
                 'mime' => $request->file('file')->getClientOriginalExtension(),
                 'size' => $size
             ];
