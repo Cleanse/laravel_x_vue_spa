@@ -24,6 +24,14 @@ Route::namespace('Api')->group(function () {
     Route::put('/product-types/{productType}', 'ProductTypesController@update');
     Route::delete('/product-types/{productType}', 'ProductTypesController@destroy');
 
+    Route::get('/templates/display', 'PrintableTemplatesController@display');
+    Route::post('/templates/upload', 'PrintableTemplatesController@upload');
+    Route::get('/templates', 'PrintableTemplatesController@index');
+    Route::get('/templates/{printableTemplate}', 'PrintableTemplatesController@show');
+    Route::post('/templates', 'PrintableTemplatesController@store');
+    Route::put('/templates/{printableTemplate}', 'PrintableTemplatesController@update');
+    Route::delete('/templates/{printableTemplate}', 'PrintableTemplatesController@destroy');
+
     Route::get('/products', 'ProductsController@index');
     Route::get('/products/{product}', 'ProductsController@show');
 });

@@ -24,6 +24,10 @@ import AdminProductTypeList from '../views/AdminProductTypeList.vue';
 import AdminProductTypeCreate from '../views/AdminProductTypeCreate.vue';
 import AdminProductTypeEdit from '../views/AdminProductTypeEdit.vue';
 
+import AdminTemplateList from '../views/AdminTemplateList.vue';
+import AdminTemplateCreate from '../views/AdminTemplateCreate.vue';
+import AdminTemplateEdit from '../views/AdminTemplateEdit.vue';
+
 //tmp
 import AdminSettings from '../views/AdminSettings.vue';
 
@@ -110,6 +114,21 @@ export default new Router({
             path: '/lg/product-types/:id/edit',
             name: 'pt.edit',
             component: AdminProductTypeEdit
+        },
+        {
+            path: '/lg/templates',
+            name: 'templates.list',
+            component: AdminTemplateList
+        },
+        {
+            path: '/lg/templates/create',
+            name: 'templates.create',
+            component: AdminTemplateCreate
+        },
+        {
+            path: '/lg/templates/:id/edit',
+            name: 'templates.edit',
+            component: AdminTemplateEdit
         },
         {
             path: '/lg/settings',
