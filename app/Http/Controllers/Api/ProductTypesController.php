@@ -26,7 +26,13 @@ class ProductTypesController extends Controller
 
     public function show(ProductType $productType)
     {
-        return new ProductTypeResource($productType);
+        if ($productType->active === 1) {
+            return new ProductTypeResource($productType);
+        }
+
+        return response([
+            'message' => 'Product was not found.'
+        ], 404);
     }
 
     public function store(Request $request)

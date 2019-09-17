@@ -1,25 +1,24 @@
 <template>
     <layout name="Frontend">
         <div class="contact-wrapper mb-5">
-            <!-- todo: Set this into the header? Find a better way of h1'ing the layout. -->
             <h1>Record Types and Templates</h1>
 
             <div v-if="!records" class="alert alert-warning" role="alert">
                 <span>{{ error }} Check back soon, or <router-link to="/contact">contact us</router-link>!</span>
             </div>
 
-            <!-- todo: https://getbootstrap.com/docs/4.3/components/card/ -->
-
             <div v-if="records" class="row mb-3">
                 <div class="col-md-8">
                     <h3>Records</h3>
                     <div class="card-deck">
                         <div class="card bg-dark text-white" v-for="record in records" v-bind:key="record.id">
-                            <img :src="record.featured[0].name" class="card-img" alt="..." v-if="record.featured.length">
-                            <div class="card-img-overlay">
-                                <h5 class="card-title">{{ record.name }}</h5>
-                                <p class="card-text">{{ record.description }}</p>
-                            </div>
+                            <router-link :to="{ name: 'record', params: { id: record.id }}">
+                                <img :src="record.featured[0].name" class="card-img" alt="..." v-if="record.featured.length">
+                                <div class="card-img-overlay">
+                                    <h5 class="card-title">{{ record.name }}</h5>
+                                    <p class="card-text">{{ record.description }}</p>
+                                </div>
+                            </router-link>
                         </div>
                     </div>
                 </div>

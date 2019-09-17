@@ -6,6 +6,7 @@ import Router from 'vue-router';
 import Home from '../views/Home.vue';
 import FAQ from '../views/FAQ.vue';
 import Records from '../views/Records.vue';
+import Record from '../views/Record.vue';
 import Products from '../views/Products.vue';
 import Contact from '../views/Contact.vue';
 
@@ -55,6 +56,11 @@ export default new Router({
             component: Records
         },
         {
+            path: '/record/:id',
+            name: 'record',
+            component: Record
+        },
+        {
             path: '/products',
             name: 'products.index',
             component: Products
@@ -79,7 +85,6 @@ export default new Router({
             name: 'users.create',
             component: UsersCreate
         },
-
         {
             path: '/lg/users/:id/edit',
             name: 'users.edit',
