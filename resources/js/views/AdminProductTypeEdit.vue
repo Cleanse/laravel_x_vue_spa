@@ -43,25 +43,24 @@
                 </div>
 
                 <div class="col-md-4">
-                    <div class="list-group">
-                        <div class="list-group-item" v-for="image in pType.featured">
-                            <img :src="`/${image.name}`">
+                    <div class="card bg-dark text-white" v-if="pType.featured">
+                        <img :src="pType.featured.filename" class="card-img" alt="Preview image." v-if="pType.featured">
+                        <div class="card-img-overlay">
+                            <h5 class="card-title">{{ pType.name }}</h5>
+                            <p class="card-text">{{ pType.description }}</p>
                         </div>
                     </div>
 
-                    <vue-clip :on-sending="sending" :options="options">
-                        <template slot="clip-uploader-action">
-                            <div>
-                                <div class="dz-message" :style="{ cursor: 'pointer' }">
-                                    <h4> Click or Drag and Drop files here upload </h4>
-                                </div>
-                            </div>
-                        </template>
+                    <p class="alert alert-success" role="alert" v-if="uploadedMessage">
+                        {{ uploadedMessage }}
+                    </p>
 
-                        <template v-slot:clip-uploader-body="props">
-                            <div v-for="file in props.files">
-                                <img v-bind:src="file.dataUrl" />
-                                {{ file.name }} {{ file.status }}
+                    <vue-clip :on-sending="sending" :on-complete="complete" :options="options">
+                        <template slot="clip-uploader-action">
+                            <div class="mt-1">
+                                <div class="dz-message p-1" :style="{ cursor: 'pointer' }">
+                                    <p class="btn btn-primary text-center">Update Featured Image</p>
+                                </div>
                             </div>
                         </template>
                     </vue-clip>
@@ -83,6 +82,7 @@
         data() {
             return {
                 message: null,
+                uploadedMessage: null,
                 loaded: false,
                 saving: false,
                 pType: {
@@ -90,7 +90,8 @@
                     name: ``,
                     description: ``,
                     notes: ``,
-                    active: null
+                    active: null,
+                    featured: null
                 },
                 options: {
                     url: `/api/product-types/featured`,
@@ -129,6 +130,14 @@
             },
             sending(file, xhr, formData) {
                 formData.append('fileable_id', this.pType.id);
+
+                this.uploadedMessage = null;
+            },
+            complete (file, status, xhr) {
+                this.message = xhr.response.message;
+
+                this.pType.featured = { filename: file.dataUrl };
+                this.uploadedMessage = `Updated Featured Image.`;
             }
         },
         created() {
@@ -138,6 +147,7 @@
                     this.pType = response.data.data;
                 })
                 .catch((err) => {
+                    console.log(err);
                     this.$router.push({ name: '404' });
                 });
         }

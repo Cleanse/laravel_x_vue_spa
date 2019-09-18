@@ -21,7 +21,7 @@ class ProductTypeResource extends JsonResource
             'name'          => $this->name,
             'description'   => $this->description,
             'notes'         => $this->notes,
-            'featured'      => FileUploadsResource::collection($this->images),
+            'featured'      => $this->featured,
             'active'        => $this->active,
             'created_at'    => $this->created_at
         ];

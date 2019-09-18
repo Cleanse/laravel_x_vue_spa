@@ -96,8 +96,19 @@ class ProductTypesController extends Controller
                 'size' => $size
             ];
 
-            $newUpload = new FileUpload($fileInformation);
-            $type->images()->save($newUpload);
+            if (is_null($type->featured())) {
+                $newUpload = new FileUpload($fileInformation);
+                $type->featured()->save($newUpload);
+            } else {
+                $currentFeatured = FileUpload::where([
+                    'fileable_id' => $request->input('fileable_id'),
+                    'fileable_type' => 'App\ProductType'
+                ])
+                    ->orderBy('id', 'desc')
+                    ->first();
+
+                $currentFeatured->update($fileInformation);
+            }
 
             return response([
                 'message' => 'Product Type image uploaded.',

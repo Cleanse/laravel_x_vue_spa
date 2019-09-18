@@ -19,10 +19,10 @@ class ProductType extends Model
     ];
 
     /**
-     * Get the pType's image.
+     * Get the pType's featured image.
      */
-    public function images()
+    public function featured()
     {
-        return $this->morphMany('App\FileUpload', 'fileable');
+        return $this->morphOne('App\FileUpload', 'fileable');
     }
 }
