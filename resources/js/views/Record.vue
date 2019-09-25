@@ -4,16 +4,22 @@
             <h1>{{ product.name }}</h1>
             <div class="row mb-3">
                 <div class="col-md-6">
-                    <img src="{ product_types:feature_image }">
-                    <img :src="product.featured[0].name" class="card-img" :alt="`${product.name} image preview`"
-                         v-if="product.featured.length">
+                    <img :src="product.featured.filename" :alt="`${product.name} image preview.`"
+                         v-if="product.featured">
 
-                    <p>Colors Available: { loop:product_type_variants:name }</p>
+                    <div class="variant-wrapper" v-if="product.variants">
+                        <h5>Colors Available:</h5>
+                        <ul>
+                            <li v-for="variant in product.variants">
+                                {{ variant.name }}
+                            </li>
+                        </ul>
+                    </div>
 
-                    <ul>
-                        <li>
-                            { products:name }
-                            { ?products:side_one_max } { ?products:side_two_max }
+                    <ul v-if="product.products">
+                        <li v-for="prod in product.products">
+                            {{ prod.name }}
+                            {{ prod.side_one_max }} {{ prod.side_two_max }}
                         </li>
                     </ul>
 
@@ -24,7 +30,12 @@
 
                 <div class="col-md-6">
                     <h3>Examples</h3>
-                    - { loop:product_type_examples:image_url }
+                    <ul v-if="product.products">
+                        <li v-for="example in product.products">
+                            <img :src="example.featured.filename" :alt="`${example.name} example image.`"
+                                 v-if="example.featured">
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>

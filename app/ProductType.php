@@ -19,10 +19,20 @@ class ProductType extends Model
     ];
 
     /**
-     * Get the pType's featured image.
+     * Get the ProductType's featured image.
      */
     public function featured()
     {
         return $this->morphOne('App\FileUpload', 'fileable');
+    }
+
+    public function products()
+    {
+        return $this->hasMany('App\Product')->where('active', 1);
+    }
+
+    public function variants()
+    {
+        return $this->hasMany('App\Variant')->where('active', 1);
     }
 }

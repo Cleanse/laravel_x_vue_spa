@@ -13,7 +13,8 @@
                     <div class="card-deck">
                         <div class="card bg-dark text-white" v-for="record in records" v-bind:key="record.id">
                             <router-link :to="{ name: 'record', params: { id: record.id }}">
-                                <img :src="record.featured[0].name" class="card-img" alt="..." v-if="record.featured.length">
+                                <img :src="record.featured.filename" class="card-img" :alt="`${record.name}'s featured image.`"
+                                     v-if="record.featured">
                                 <div class="card-img-overlay">
                                     <h5 class="card-title">{{ record.name }}</h5>
                                     <p class="card-text">{{ record.description }}</p>
