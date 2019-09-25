@@ -14,6 +14,8 @@ class Product extends Model
     protected $fillable = [
         'product_type_id',
         'name',
+        'side_one_max',
+        'side_two_max',
         'active'
     ];
 }

@@ -9,7 +9,7 @@ class ProductResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)
@@ -17,7 +17,11 @@ class ProductResource extends JsonResource
         return [
             'id' => $this->id,
             'product_type_id' => $this->product_type_id,
-            'name' => $this->name
+            'name' => $this->name,
+            'side_one' => $this->side_one_max,
+            'side_two' => $this->side_two_max,
+            'active' => $this->active,
+            'created_at' => $this->created_at,
         ];
     }
 }

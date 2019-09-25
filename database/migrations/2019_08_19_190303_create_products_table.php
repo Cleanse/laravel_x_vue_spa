@@ -39,7 +39,9 @@ class CreateProductsTable extends Migration
             $table->bigInteger('product_type_id')->unsigned();
             $table->string('name');
             $table->integer('side_one_max');
-            $table->integer('side_two_max');
+            $table->integer('side_two_max')->nullable();
+            $table->string('description')->nullable();
+            $table->string('notes')->nullable();
             $table->boolean('active')->default(1);
             $table->timestamps();
 

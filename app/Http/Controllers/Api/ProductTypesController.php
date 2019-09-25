@@ -55,8 +55,8 @@ class ProductTypesController extends Controller
         $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'active' => 'required',
-            'notes' => 'nullable|string'
+            'notes' => 'nullable|string',
+            'active' => 'required'
         ]);
 
         $productType->update($request->all());
