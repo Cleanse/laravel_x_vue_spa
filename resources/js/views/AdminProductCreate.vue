@@ -13,7 +13,8 @@
                 <div class="form-group">
                     <label for="product_type_id">Product Type</label>
                     <select id="product_type_id" class="form-control" v-model="pt.product_type_id">
-                        <option v-for="pType in pTypes" :value="pType.id">{{ pType.name }}</option>
+                        <option v-for="product_type in pTypes" :value="product_type.id"
+                                v-bind:key="product_type.id" v-if="pTypes">{{ product_type.name }}</option>
                     </select>
                 </div>
 
@@ -67,7 +68,8 @@
                     side_one_max: ``,
                     side_two_max: ``,
                     description: ``,
-                    notes: ``
+                    notes: ``,
+                    category: null
                 },
                 pTypes: null
             }
