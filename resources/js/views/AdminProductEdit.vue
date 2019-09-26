@@ -17,8 +17,7 @@
                     <form @submit.prevent="onSubmit($event)" v-else>
                         <div class="form-group">
                             <label for="product_type_id">Product Type</label>
-                            <select id="product_type_id" class="form-control" v-model="product.product_type_id">
-                                <option :value="product.product_type_id">{{ pType.name }}</option>
+                            <select id="product_type_id" class="form-control" v-model="product.category.id">
                                 <option v-for="pType in pTypes" :value="pType.id">{{ pType.name }}</option>
                             </select>
                         </div>
@@ -29,11 +28,11 @@
                         </div>
                         <div class="form-group">
                             <label for="side_one_max">side_one_max</label>
-                            <input class="form-control" id="side_one_max" v-model="product.side_one_max">
+                            <input class="form-control" id="side_one_max" v-model="product.side_one">
                         </div>
                         <div class="form-group">
                             <label for="side_two_max">side_two_max (optional)</label>
-                            <input class="form-control" id="side_two_max" v-model="product.side_two_max">
+                            <input class="form-control" id="side_two_max" v-model="product.side_two">
                         </div>
                         <div class="form-group">
                             <label for="description">Description</label>
@@ -106,12 +105,13 @@
                     id: null,
                     product_type_id: null,
                     name: ``,
-                    side_one_max: ``,
-                    side_two_max: ``,
+                    side_one: ``,
+                    side_two: ``,
                     description: ``,
                     notes: ``,
                     active: null,
-                    featured: null
+                    featured: null,
+                    category: null
                 },
                 options: {
                     url: `/api/products/featured`,
@@ -129,10 +129,10 @@
                 this.saving = true;
 
                 api.update(this.product.id, {
-                    product_type_id: this.product.product_type_id,
+                    product_type_id: this.product.category.id,
                     name: this.product.name,
-                    side_one_max: this.product.side_one_max,
-                    side_two_max: this.product.side_two_max,
+                    side_one_max: this.product.side_one,
+                    side_two_max: this.product.side_two,
                     description: this.product.description,
                     notes: this.product.notes,
                     active: this.product.active,
@@ -175,10 +175,10 @@
                     this.$router.push({ name: '404' });
                 });
 
-            typeApi.find(this.$route.params.id)
+            typeApi.all(this.$route.params.id)
                 .then((response) => {
                     this.loaded = true;
-                    this.product = response.data.data;
+                    this.pTypes = response.data.data;
                 })
                 .catch((err) => {
                     console.log(err);
